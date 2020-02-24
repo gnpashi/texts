@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+<p>
+	<strong>Title:</strong>
+	<%= @document.title %>
+</p>
+
+<p>
+	<strong>Author:</strong>
+	<%= @document.author %>
+</p>
+
+<p class="content">
+	<strong>Content:</strong>
+	<%= @document.content %>
+</p>
+
+	<%= link_to 'Edit', edit_document_path(@document) %> |
+	<%= link_to 'Back', documents_path %>
+
+<div class="button w-full h-32 bg-red-500">
+	disconnect from internet to see text
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$.ajax({
+			type: "GET",
+			url: "/",
+			success: function(msg){
+				console.log("Connection active!")
+				$(".content").toggleClass('hidden')
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				if(textStatus == 'timeout') {
+					console.log("no Connection")
+					$(".content").toggleClass('hidden')
+				}
+			}
+		});
+	function handleConnectionChange(event){
+			if(event.type == "offline"){
+					console.log("You lost connection.");
+					$(".content").toggleClass('hidden')
+			}
+			if(event.type == "online"){
+					console.log("You are now back online.");
+					$(".content").toggleClass('hidden')
+
+			}
+
+			console.log(new Date(event.timeStamp));
+	}
+	window.addEventListener('online', handleConnectionChange);
+	window.addEventListener('offline', handleConnectionChange);
+});
+
+</script>
