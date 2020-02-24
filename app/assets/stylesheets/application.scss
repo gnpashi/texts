@@ -3,3 +3,34 @@
 	direction: rtl;
 	font-family: 'Rubik', sans-serif;
 }
+
+.main-height{
+	height: 90%;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.message {
+  position: fixed;
+  left: 0;
+  bottom: 3rem;
+  width: 100%;
+  text-align: center;
+}
+
+.settings-btn {
+  position: fixed;
+  left: 0;
+  bottom: 6rem;
+}
+
+.settings {
+  position: fixed;
+  left: 3rem;
+  bottom: 6rem;
+}
