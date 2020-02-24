@@ -12,18 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label t("title") %><br>
+    <%= form.text_field :title, class:"border" %>
   </div>
 
   <div class="field">
-    <%= form.label :author %>
-    <%= form.text_field :author %>
+    <%= form.label t("author")%><br>
+    <%= form.text_field :author, class:"border" %>
   </div>
 
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= form.label t("content")%>
+    <%= form.text_area :content, class:"border w-full h-64" %>
   </div>
 	<div class="field hidden">
 		<%= form.label :user %>
