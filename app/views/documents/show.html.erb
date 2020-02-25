@@ -1,16 +1,16 @@
 <%= content_for :title, @document.title %>
 
 <h1 class="text-5xl"><%= @document.title %><span class="share mr-2"><i class='material-icons'>share</i></span>
-	<div class="share-links bg-gray-200 rounded shadow w-24 hidden float-left">
+	<div class="share-links bg-gray-200 absolute rounded shadow w-24 hidden left-0 top-0 mt-1 ml-1">
 		<a  href="whatsapp://send?text= רוצה להצטרף? <%= @document.author %> של <%= @document.title %>אנחנו קוראים יחד את <%= request.original_url %>"><img class="inline" src="https://img.icons8.com/color/48/000000/whatsapp.png"></a>
 		<button onclick="copy_text()"><img src="https://img.icons8.com/material-outlined/24/000000/copy.png"></button>
 	</div>
 </h1>
 <h2  class="text-3xl"><%= @document.author %></h2>
 
-<p class="content text-lg mb-16">
+<pre class="content text-lg mb-16">
 	<%= @document.content %>
-</p>
+</pre>
 
 <div class="settings-btn bg-gray-300 w-10 h-10 text-center pt-2 rounded-full rounded-l-none">
 	<i class='material-icons'>settings</i>
@@ -43,13 +43,8 @@
 <% unless user_signed_in? %>
   <script type="text/javascript">
 	$(document).ready(function() {
-		var messages = [
-			"השומר הוא איש אמת ועומד על משמרה! בוא/בואי תחזור/תחזרי לפעולה", "הודעות ווטסאפ זה ממש מעניין, הפעולה יותר"
-			"אל דאגה, כל מי שמעניין נמצא בחדר הזה",
-			"	ברור שאת/ה רוצה לספר על הטקסט לכולם, אבל אפשר לחכות עם המייל חצי שעה...",
-			"	הFOMO לא יעבור לך עד שלא תפסיק/י להיכנס לאינסטגרם",
-			"	עדיף שתי עיניים על הטקסט מאשר אחת בוואטסאפ ואחת בפייסבוק",
-			"	אז אולי לא תגלה 'חמישה דברים שלא ידעת על נזלת', אבל לפחות תבין את <%= @document.title %>"]
+		var messages = ['<%= t("messages.a") %>','<%= t("messages.b") %>','<%= t("messages.c") %>',
+										'<%= t("messages.d") %>','<%= t("messages.e") %>','<%= t("messages.f") %>']
 		$.ajax({
 				type: "GET",
 				url: "/",
@@ -93,8 +88,21 @@
   </script>
 <% end %>
 <script type="text/javascript">
-var messages = ['<%= t("messages.a") %>','<%= t("messages.b") %>','<%= t("messages.c") %>',
-								'<%= t("messages.d") %>','<%= t("messages.e") %>','<%= t("messages.f") %>']
+	// var str = $(".content").html();
+	// $(".content").html("");
+	// var patt1 = /\r|\n/;
+ 	// var result = str.search(patt1);
+	// var match = /\r|\n/.exec(str);
+	// if (match) {
+	//    console.log(result);
+	// }
+	// var splitted = str.split(/\r|\n/)
+	// // console.log(splitted);
+	// splitted.forEach(function(el, index) {
+	// 	console.log(index );
+	// 	// $(".content").append(el);
+	// 	$(".content").add('div')
+	// });
 	function copy_text() {
 		var dummy = document.createElement('input'),
 	    text = window.location.href;
@@ -103,8 +111,6 @@ var messages = ['<%= t("messages.a") %>','<%= t("messages.b") %>','<%= t("messag
 	dummy.select();
 	document.execCommand('copy');
 	document.body.removeChild(dummy);
-	var randomItem = messages[Math.floor(Math.random()*messages.length)];
-	console.log(randomItem);
 
 	}
 
