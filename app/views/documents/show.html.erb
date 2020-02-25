@@ -8,7 +8,7 @@
 </h1>
 <h2  class="text-3xl"><%= @document.author %></h2>
 
-<pre class="content text-lg mb-16">
+<pre class="content text-lg mb-16 hidden">
 	<%= @document.content %>
 </pre>
 
@@ -16,7 +16,7 @@
 	<i class='material-icons'>settings</i>
 </div>
 
-<div class="hidden overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center">
+<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center">
 	<div class="w-3/4 h-3/4 bg-red-600 self-center rounded-lg text-white flex flex-col justify-center items-center">
 		<p class="text-3xl">צריך לכבות את האינטרנט כדי לקרוא את הטקסט</p>
 		<%= image_tag "eye-white.svg", class:"w-full"%>
@@ -50,8 +50,6 @@
 				url: "/",
 				success: function(msg){
 					console.log("Connection active!")
-					$(".content").addClass('hidden')
-					$(".overlay").removeClass('hidden')
 					var randomItem = messages[Math.floor(Math.random()*messages.length)];
 					$("#message").html(randomItem)
 
@@ -59,11 +57,28 @@
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					if(textStatus == 'timeout') {
 						console.log("no Connection")
-						$(".content").removeClass('hidden')
-						$(".overlay").addClass('hidden')
+						$(".content").toggle()
+						$(".overlay").toggle()
 					}
 				}
 			});
+			function handleConnectionChange(event){
+					if(event.type == "offline"){
+							// console.log("You lost connection.");
+							$(".content").toggle()
+							$(".overlay").toggle()
+					}
+					if(event.type == "online"){
+							// console.log("You are now back online.");
+							$(".content").toggle()
+							$(".overlay").toggle()
+							var randomItem = messages[Math.floor(Math.random()*messages.length)];
+							$("#message").html(randomItem)
+					}
+					//
+					// console.log(new Date(event.timeStamp));
+			}
+
 		window.addEventListener('online', handleConnectionChange);
 		window.addEventListener('offline', handleConnectionChange);
 	});
@@ -111,22 +126,7 @@
 		$(".share").click(function(event) {
 			$(".share-links").toggle(500);
 		})
-		function handleConnectionChange(event){
-				if(event.type == "offline"){
-						// console.log("You lost connection.");
-						$(".content").removeClass('hidden')
-						$(".overlay").addClass('hidden')
-				}
-				if(event.type == "online"){
-						// console.log("You are now back online.");
-						$(".content").addClass('hidden')
-						$(".overlay").removeClass('hidden')
-						var randomItem = messages[Math.floor(Math.random()*messages.length)];
-						$("#message").html(randomItem)
-				}
-				//
-				// console.log(new Date(event.timeStamp));
-		}
+
 		function scroll_func() {
 			var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
 			var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
