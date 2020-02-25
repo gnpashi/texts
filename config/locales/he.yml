@@ -32,7 +32,7 @@
 he:
   login: "התחברות"
   logout: "התנתקות"
-  title: "כותרת"
+  doc-title: "כותרת"
   author: "מחבר/ת"
   content: "תוכן"
   email: "אימייל"
@@ -40,3 +40,4 @@ he:
   remember_me: "זכור אותי"
   documents: "כל הטקסטים"
   send: "שליחה"
+  title: "Offline"
