@@ -40,7 +40,7 @@ he:
   remember_me: "זכור אותי"
   documents: "כל הטקסטים"
   send: "שליחה"
-  title: "Offline"
+  site_name: "Offline"
   join: "אנחנו קוראים יחד את %{title} מאת %{author}. רוצה להצטרף?"
   messages:
     a: "השומר הוא איש אמת ועומד על משמרה! בוא/בואי תחזור/תחזרי לפעולה"

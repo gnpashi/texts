@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="h-full">
   <head>
-    <title><%= t("title") %></title>
+    <title><%= title %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -16,8 +16,11 @@
 
  <body class="bg-white h-full">
 
-
-
+   <% if action_name == "show" %>
+     <div class="progress-container fixed top-0 w-full">
+         <div class="progress-bar w-full" id="myBar"></div>
+     </div>
+   <% end %>
     <main class="lg:px-10 px-4 h-full">
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>

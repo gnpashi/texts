@@ -3,7 +3,7 @@
 <h1 class="text-5xl"><%= @document.title %><span class="share mr-2"><i class='material-icons'>share</i></span>
 	<div class="share-links bg-gray-200 absolute rounded shadow w-24 hidden left-0 top-0 mt-1 ml-1">
 		<a  href="whatsapp://send?text=<%= t("join", title: @document.title, author: @document.author) %> <%= request.original_url %>"><img class="inline" src="https://img.icons8.com/color/48/000000/whatsapp.png"></a>
-		<button onclick="copy_text()"><img src="https://img.icons8.com/material-outlined/24/000000/copy.png"></button>
+		<button class="copy_text""><img src="https://img.icons8.com/material-outlined/24/000000/copy.png"></button>
 	</div>
 </h1>
 <h2  class="text-3xl"><%= @document.author %></h2>
@@ -64,23 +64,6 @@
 					}
 				}
 			});
-		function handleConnectionChange(event){
-				if(event.type == "offline"){
-						console.log("You lost connection.");
-						$(".content").removeClass('hidden')
-						$(".overlay").addClass('hidden')
-				}
-				if(event.type == "online"){
-						console.log("You are now back online.");
-						$(".content").addClass('hidden')
-						$(".overlay").removeClass('hidden')
-						var randomItem = messages[Math.floor(Math.random()*messages.length)];
-						$("#message").html(randomItem)
-
-				}
-
-				console.log(new Date(event.timeStamp));
-		}
 		window.addEventListener('online', handleConnectionChange);
 		window.addEventListener('offline', handleConnectionChange);
 	});
@@ -88,57 +71,86 @@
   </script>
 <% end %>
 <script type="text/javascript">
-	// var str = $(".content").html();
-	// $(".content").html("");
-	// var patt1 = /\r|\n/;
- 	// var result = str.search(patt1);
-	// var match = /\r|\n/.exec(str);
-	// if (match) {
-	//    console.log(result);
-	// }
-	// var splitted = str.split(/\r|\n/)
-	// // console.log(splitted);
-	// splitted.forEach(function(el, index) {
-	// 	console.log(index );
-	// 	// $(".content").append(el);
-	// 	$(".content").add('div')
-	// });
-	function copy_text() {
-		var dummy = document.createElement('input'),
-	    text = window.location.href;
-	document.body.appendChild(dummy);
-	dummy.value = "אנחנו קוראים יחד את <%= @document.title %> של <%= @document.author %> רוצה להצטרף? \r\r\r" + text;
-	dummy.select();
-	document.execCommand('copy');
-	document.body.removeChild(dummy);
+	$(document).ready(function() {
+		window.onscroll = function() {scroll_func()};
+		$(".copy_text").click(function(event) {
+			copy_text()
+		});
+		var content = $(".content").html().split("\n")
+		$(".content").html("");
+		content.forEach(function(el, index) {
+			if (el == "") {
+			} else {
+				$(".content").append( "<p>" + "<span class='text-sm text-gray-600'>" + (index + 1) + "</span> " + el + "</p>" );
+			}
+		});
+		$(".settings-btn").click(function(event) {
+			$(".settings").toggle(500);
+		});
+		$(".bigger").click(function(event) {
+			var font_size = parseInt($(".content").css('font-size').replace("px", ""))
+			var new_size = font_size + 5
+			$(".content").css('font-size', new_size);
+		});
+		$(".smaller").click(function(event) {
+			var font_size = parseInt($(".content").css('font-size').replace("px", ""))
+			var new_size = font_size - 5
+			$(".content").css('font-size', new_size);
+		});
+		$(".dark-toggle").click(function(event) {
+			$("body").toggleClass('dark-mode');
+			$(".settings").toggleClass('settings-dark');
+			$(".settings-btn").toggleClass('settings-dark');
+			$("nav").toggleClass('footer-dark');
+			$("footer").toggleClass('footer-dark');
+			$(".docs-btn").toggleClass('dark-docs-btn');
+			$(".logout-btn").toggleClass('dark-logout-btn');
+			$(".back-btn").toggleClass('dark-back-btn');
+			$(".font-size").toggleClass('bg-gray-300').toggleClass('font-size-dark');;
+		});
+		$(".share").click(function(event) {
+			$(".share-links").toggle(500);
+		})
+		function handleConnectionChange(event){
+				if(event.type == "offline"){
+						// console.log("You lost connection.");
+						$(".content").removeClass('hidden')
+						$(".overlay").addClass('hidden')
+				}
+				if(event.type == "online"){
+						// console.log("You are now back online.");
+						$(".content").addClass('hidden')
+						$(".overlay").removeClass('hidden')
+						var randomItem = messages[Math.floor(Math.random()*messages.length)];
+						$("#message").html(randomItem)
+				}
+				//
+				// console.log(new Date(event.timeStamp));
+		}
+		function scroll_func() {
+			var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+			var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+			var scrolled = (winScroll / height) * 100;
+			document.getElementById("myBar").style.width = scrolled + "%";
+		}
 
-	}
 
-	$(".settings-btn").click(function(event) {
-		$(".settings").toggle(500);
+			function copy_text() {
+				var dummy = document.createElement('input'),
+					text = window.location.href;
+			document.body.appendChild(dummy);
+			dummy.value = "אנחנו קוראים יחד את <%= @document.title %> של <%= @document.author %> רוצה להצטרף? \r\r\r" + text;
+			dummy.select();
+			document.execCommand('copy');
+			document.body.removeChild(dummy);
+
+		}
+		function sleep(milliseconds) {
+			const date = Date.now();
+			let currentDate = null;
+			do {
+				currentDate = Date.now();
+			} while (currentDate - date < milliseconds);
+		}
 	});
-	$(".bigger").click(function(event) {
-		var font_size = parseInt($(".content").css('font-size').replace("px", ""))
-		var new_size = font_size + 5
-		$(".content").css('font-size', new_size);
-	});
-	$(".smaller").click(function(event) {
-		var font_size = parseInt($(".content").css('font-size').replace("px", ""))
-		var new_size = font_size - 5
-		$(".content").css('font-size', new_size);
-	});
-	$(".dark-toggle").click(function(event) {
-		$("body").toggleClass('dark-mode');
-		$(".settings").toggleClass('settings-dark');
-		$(".settings-btn").toggleClass('settings-dark');
-		$("nav").toggleClass('footer-dark');
-		$("footer").toggleClass('footer-dark');
-		$(".docs-btn").toggleClass('dark-docs-btn');
-		$(".logout-btn").toggleClass('dark-logout-btn');
-		$(".back-btn").toggleClass('dark-back-btn');
-		$(".font-size").toggleClass('bg-gray-300').toggleClass('font-size-dark');;
-	});
-	$(".share").click(function(event) {
-		$(".share-links").toggle(500);
-	})
 </script>
