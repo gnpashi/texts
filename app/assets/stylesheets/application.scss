@@ -34,3 +34,38 @@ footer {
   left: 3rem;
   bottom: 6rem;
 }
+
+.dark-mode{
+	background: #121212 !important;
+	color: #fff9ee;
+}
+
+.settings-dark{
+	background: #242424 !important;
+}
+
+.content{
+	overflow-wrap: break-word;
+	text-align: justify;
+  text-justify: inter-word;
+}
+
+.footer-dark{
+	background: #242424 !important;
+	border-top: none
+}
+
+.dark-docs-btn{
+	color: #90cdf4 !important;
+	border-color: #90cdf4 !important;
+}
+.dark-logout-btn{
+	color: white !important;
+	border-color: white !important;
+}
+.dark-back-btn{
+	color: white !important;
+}
+.font-size-dark{
+	background: #2C2C2C !important
+}

@@ -1,72 +1,102 @@
-<h1 class="text-5xl"><%= @document.title %></h1>
-
+<h1 class="text-5xl"><%= @document.title %><span class="share mr-2"><i class='material-icons'>share</i></span>
+	<div class="share-links bg-gray-200 rounded shadow w-24 hidden float-left">
+		<a  href="whatsapp://send?text=<%= request.original_url %>"><img class="inline" src="https://img.icons8.com/color/48/000000/whatsapp.png"></a>
+		<button onclick="copy_text()"><img src="https://img.icons8.com/material-outlined/24/000000/copy.png"></button>
+	</div>
+</h1>
 <h2  class="text-3xl"><%= @document.author %></h2>
 
 <p class="content text-lg mb-16">
 	<%= @document.content %>
 </p>
 
-<div class="settings-btn">
+<div class="settings-btn bg-gray-300 w-10 h-10 text-center pt-2 rounded-full rounded-l-none">
 	<i class='material-icons'>settings</i>
 </div>
 
-<div class="hidden overlay absolute top-0 right-0 w-full h-full bg-red-500">
-	disconnect from internet to see text
+<div class="hidden overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center">
+	<div class="w-3/4 h-3/4 bg-red-600 self-center rounded-lg text-white flex flex-col justify-center items-center">
+		<%= image_tag "eye-white.svg", class:"w-full"%>
+		<p id="message" class="text-3xl"></p>
+	</div>
 </div>
 
-<div class="settings hiddena w-1/2 h-1/2 bg-gray-200 rounded shadow">
-	<div class="grid grid-cols-3 gap-4">
-  <div class="bigger"><i class='material-icons'>add</i></div>
-  <div><i class='material-icons'>format_size</i></div>
-	<div class="smaller"><i class='material-icons'>remove</i></div>
-	<div class="dark"><i class='material-icons'>nights_stay</i></div>
-	<div>5</div>
+<div class="settings hidden w-1/2 h-1/4a bg-gray-200 rounded shadow">
+	<div class="grid grid-cols-1 gap-4">
+		<div class="font-size grid grid-cols-3 gap-4 bg-gray-300">
+			<div class="bigger"><i class='material-icons'>add</i></div>
+			<div><i class='material-icons'>format_size</i></div>
+			<div class="smaller"><i class='material-icons'>remove</i></div>
+		</div>
+	<div class="dark-toggle"><i class='material-icons'>nights_stay</i></div>
+	<!-- <div>5</div>
 	<div>6</div>
 	<div>7</div>
 	<div>8</div>
-  <div>9</div>
+  <div>9</div> -->
 </div>
 </div>
+<% unless user_signed_in? %>
+  <script type="text/javascript">
+	$(document).ready(function() {
+		var messages = ["השומר הוא איש אמת ועומד על משמרה! בוא/בואי תחזור/תחזרי לפעולה", "הודעות ווטסאפ זה ממש מעניין, הפעולה יותר"]
+		$.ajax({
+				type: "GET",
+				url: "/",
+				success: function(msg){
+					console.log("Connection active!")
+					$(".content").addClass('hidden')
+					$(".overlay").removeClass('hidden')
+					var randomItem = messages[Math.floor(Math.random()*messages.length)];
+					$("#message").html(randomItem)
 
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					if(textStatus == 'timeout') {
+						console.log("no Connection")
+						$(".content").removeClass('hidden')
+						$(".overlay").addClass('hidden')
+					}
+				}
+			});
+		function handleConnectionChange(event){
+				if(event.type == "offline"){
+						console.log("You lost connection.");
+						$(".content").removeClass('hidden')
+						$(".overlay").addClass('hidden')
+				}
+				if(event.type == "online"){
+						console.log("You are now back online.");
+						$(".content").addClass('hidden')
+						$(".overlay").removeClass('hidden')
+						var randomItem = messages[Math.floor(Math.random()*messages.length)];
+						$("#message").html(randomItem)
+
+				}
+
+				console.log(new Date(event.timeStamp));
+		}
+		window.addEventListener('online', handleConnectionChange);
+		window.addEventListener('offline', handleConnectionChange);
+	});
+
+  </script>
+<% end %>
 <script type="text/javascript">
-// $(document).ready(function() {
-// 	$.ajax({
-// 			type: "GET",
-// 			url: "/",
-// 			success: function(msg){
-// 				console.log("Connection active!")
-// 				$(".content").addClass('hidden')
-// 				$(".overlay").removeClass('hidden')
-// 			},
-// 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-// 				if(textStatus == 'timeout') {
-// 					console.log("no Connection")
-// 					$(".content").removeClass('hidden')
-// 					$(".overlay").addClass('hidden')
-// 				}
-// 			}
-// 		});
-// 	function handleConnectionChange(event){
-// 			if(event.type == "offline"){
-// 					console.log("You lost connection.");
-// 					$(".content").removeClass('hidden')
-// 					$(".overlay").addClass('hidden')
-// 			}
-// 			if(event.type == "online"){
-// 					console.log("You are now back online.");
-// 					$(".content").addClass('hidden')
-// 					$(".overlay").removeClass('hidden')
-//
-// 			}
-//
-// 			console.log(new Date(event.timeStamp));
-// 	}
-// 	window.addEventListener('online', handleConnectionChange);
-// 	window.addEventListener('offline', handleConnectionChange);
-// });
+	function copy_text() {
+		var dummy = document.createElement('input'),
+	    text = window.location.href;
+
+	document.body.appendChild(dummy);
+	dummy.value = text;
+	dummy.select();
+	document.execCommand('copy');
+	document.body.removeChild(dummy);
+
+	}
 
 	$(".settings-btn").click(function(event) {
-		$(".settings").toggleClass('hidden')
+		$(".settings").toggle(500);
 	});
 	$(".bigger").click(function(event) {
 		var font_size = parseInt($(".content").css('font-size').replace("px", ""))
@@ -78,4 +108,18 @@
 		var new_size = font_size - 5
 		$(".content").css('font-size', new_size);
 	});
+	$(".dark-toggle").click(function(event) {
+		$("body").toggleClass('dark-mode');
+		$(".settings").toggleClass('settings-dark');
+		$(".settings-btn").toggleClass('settings-dark');
+		$("nav").toggleClass('footer-dark');
+		$("footer").toggleClass('footer-dark');
+		$(".docs-btn").toggleClass('dark-docs-btn');
+		$(".logout-btn").toggleClass('dark-logout-btn');
+		$(".back-btn").toggleClass('dark-back-btn');
+		$(".font-size").toggleClass('bg-gray-300').toggleClass('font-size-dark');;
+	});
+	$(".share").click(function(event) {
+		$(".share-links").toggle(500);
+	})
 </script>
