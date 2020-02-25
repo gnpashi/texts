@@ -39,12 +39,17 @@
   <div>9</div> -->
 </div>
 </div>
+
 <% unless user_signed_in? %>
   <script type="text/javascript">
 	$(document).ready(function() {
-		var is_in = true
-
-		var messages = ["השומר הוא איש אמת ועומד על משמרה! בוא/בואי תחזור/תחזרי לפעולה", "הודעות ווטסאפ זה ממש מעניין, הפעולה יותר"]
+		var messages = [
+			"השומר הוא איש אמת ועומד על משמרה! בוא/בואי תחזור/תחזרי לפעולה", "הודעות ווטסאפ זה ממש מעניין, הפעולה יותר"
+			"אל דאגה, כל מי שמעניין נמצא בחדר הזה",
+			"	ברור שאת/ה רוצה לספר על הטקסט לכולם, אבל אפשר לחכות עם המייל חצי שעה...",
+			"	הFOMO לא יעבור לך עד שלא תפסיק/י להיכנס לאינסטגרם",
+			"	עדיף שתי עיניים על הטקסט מאשר אחת בוואטסאפ ואחת בפייסבוק",
+			"	אז אולי לא תגלה 'חמישה דברים שלא ידעת על נזלת', אבל לפחות תבין את <%= @document.title %>"]
 		$.ajax({
 				type: "GET",
 				url: "/",
@@ -88,6 +93,8 @@
   </script>
 <% end %>
 <script type="text/javascript">
+var messages = ['<%= t("messages.a") %>','<%= t("messages.b") %>','<%= t("messages.c") %>',
+								'<%= t("messages.d") %>','<%= t("messages.e") %>','<%= t("messages.f") %>']
 	function copy_text() {
 		var dummy = document.createElement('input'),
 	    text = window.location.href;
@@ -96,6 +103,8 @@
 	dummy.select();
 	document.execCommand('copy');
 	document.body.removeChild(dummy);
+	var randomItem = messages[Math.floor(Math.random()*messages.length)];
+	console.log(randomItem);
 
 	}
 

@@ -22,18 +22,20 @@
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
 		<% if user_signed_in? %>
-		<% flash.each do |type, message| %>
-		<% if type == "alert" %>
-		<div class="bg-red-500 message">
-			<div class="container px-2 mx-auto py-4 text-white text-center "><%= message %></div>
+		<div class="hidden">
+			<% flash.each do |type, message| %>
+				<% if type == "alert" %>
+					<div class="bg-red-500 message">
+						<div class="container px-2 mx-auto py-4 text-white text-center "><%= message %></div>
+					</div>
+				<% end %>
+				<% if type == "notice" %>
+					<div class="bg-green-500 message">
+						<div class="container px-2 mx-auto py-4 text-white text-center"><%= message %></div>
+					</div>
+				<% end %>
+			<% end %>
 		</div>
-		<% end %>
-		<% if type == "notice" %>
-		<div class="bg-green-500 message">
-			<div class="container px-2 mx-auto py-4 text-white text-center"><%= message %></div>
-		</div>
-		<% end %>
-		<% end %>
 		<footer class="h-12">
 			<nav class="flex items-center justify-between flex-wrap bg-gray-100 py-1 lg:px-10 px-3 text-gray-700 border-t border-gray-400">
 
