@@ -37,11 +37,18 @@ he:
   content: "תוכן"
   email: "אימייל"
   password: "סיסמה"
+  password_confirmation: "אימות סיסמה"
+  minimum_password_length: "תווים מינימום"
+  username: "שם משתמש"
+  full_name: "שם מלא"
   remember_me: "זכור אותי"
   documents: "כל הטקסטים"
   send: "שליחה"
+  save: "שמירה"
+  share: "שיתוף"
   site_name: "Offline"
   join: "אנחנו קוראים יחד את %{title} מאת %{author}. רוצה להצטרף?"
+  registration: "הרשמה"
   messages:
     a: "השומר הוא איש אמת ועומד על משמרה! בוא/בואי תחזור/תחזרי לפעולה"
     b: "אל דאגה, כל מי שמעניין נמצא בחדר הזה"
@@ -49,3 +56,18 @@ he:
     d: "הFOMO לא יעבור לך עד שלא תפסיק/י להיכנס לאינסטגרם"
     e: "עדיף שתי עיניים על הטקסט מאשר אחת בוואטסאפ ואחת בפייסבוק"
     f: "הודעות ווטסאפ זה ממש מעניין, הפעולה יותר"
+  errors:
+    messages:
+      not_saved: "לא נשמר"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_short: "הסימה קצרה מדי"
+              blank: "הסיסמה לא יכולה להיות ריקה"
+            password_confirmation:
+              confirmation: "הסיסמה לא תואמת"
+            email:
+              taken: "האימייל שנבחר כבר בשימוש"

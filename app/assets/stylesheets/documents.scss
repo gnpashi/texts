@@ -1,3 +1,112 @@
 // Place all the styles related to the Documents controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.settings-btn {
+  position: fixed;
+  left: 0;
+  bottom: 6rem;
+}
+
+.settings {
+  position: fixed;
+  left: 3rem;
+  bottom: 6rem;
+}
+
+.dark-mode{
+	background: #121212 !important;
+	color: #fff9ee;
+}
+
+.settings-dark{
+	background: #242424 !important;
+}
+
+.content{
+	overflow-wrap: break-word;
+	text-align: justify;
+  text-justify: inter-word;
+}
+
+.footer-dark{
+	background: #242424 !important;
+	border-top: none
+}
+
+.dark-docs-btn{
+	color: #90cdf4 !important;
+	border-color: #90cdf4 !important;
+}
+.dark-logout-btn{
+	color: white !important;
+	border-color: white !important;
+}
+.dark-back-btn{
+	color: white !important;
+}
+.font-size-dark{
+	background: #2C2C2C !important
+}
+
+pre {
+	font-family: 'Rubik', sans-serif !important;
+  display: block;
+  white-space: pre-wrap;
+  margin: 1em 0;
+}
+
+/* The progress container (grey background) */
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+  height: 8px;
+  background: #4caf50;
+  width: 0%;
+}
+.dark-progress-bar {
+  background: #8B41BE;
+}
+
+
+pre .line-number {
+  /* Ukuran line-height antara teks di dalam tag <code> dan <span class="line-number"> harus sama! */
+  font:normal normal 12px/14px "Courier New",Courier,Monospace;
+  color:black;
+  display:block;
+}
+
+pre .line-number {
+  float:left;
+  margin:0 1em 0 -1em;
+  border-right:1px solid;
+  text-align:right;
+}
+
+pre .line-number span {
+  display:block;
+  padding:0 .5em 0 1em;
+}
+
+pre .cl {
+  display:block;
+  clear:both;
+}
+
+.whatsapp{
+	vertical-align: baseline;
+}

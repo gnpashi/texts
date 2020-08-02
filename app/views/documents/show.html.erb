@@ -1,10 +1,11 @@
 <%= content_for :title, @document.title %>
 
-<h1 class="text-5xl"><%= @document.title %><span class="share mr-2"><i class='material-icons'>share</i></span>
-	<div class="share-links bg-gray-200 absolute rounded shadow w-24 hidden left-0 top-0 mt-1 ml-1">
-		<a  href="whatsapp://send?text=<%= t("join", title: @document.title, author: @document.author) %> <%= request.original_url %>"><img class="inline" src="https://img.icons8.com/color/48/000000/whatsapp.png"></a>
-		<button class="copy_text""><img src="https://img.icons8.com/material-outlined/24/000000/copy.png"></button>
-	</div>
+<h1 class="text-5xl"><%= @document.title %><span class="share mr-2">
+	<!-- <i class='material-icons'>share</i></span> -->
+	<!-- <div class="share-links bg-gray-200 absolute rounded shadow w-24 hidden left-0 top-0 mt-1 ml-1"> -->
+		<a  href="whatsapp://send?text=<%= t('join', title: @document.title, author: @document.author) %> <%= request.original_url %>"><img class="inline whatsapp" src="https://img.icons8.com/material-outlined/24/000000/whatsapp.png"></a>
+		<button class="copy_text"><i class='material-icons'>content_copy</i></button>
+	<!-- </div> -->
 </h1>
 <h2  class="text-3xl"><%= @document.author %></h2>
 
@@ -84,6 +85,13 @@
 	});
 
   </script>
+<% else %>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".content").show()
+			$(".overlay").hide()
+		});
+	</script>
 <% end %>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -121,6 +129,7 @@
 			$(".docs-btn").toggleClass('dark-docs-btn');
 			$(".logout-btn").toggleClass('dark-logout-btn');
 			$(".back-btn").toggleClass('dark-back-btn');
+			$(".progress-bar").toggleClass('dark-progress-bar');
 			$(".font-size").toggleClass('bg-gray-300').toggleClass('font-size-dark');;
 		});
 		$(".share").click(function(event) {
