@@ -1,11 +1,8 @@
 <%= content_for :title, @document.title %>
 
 <h1 class="text-5xl"><%= @document.title %><span class="share mr-2">
-	<!-- <i class='material-icons'>share</i></span> -->
-	<!-- <div class="share-links bg-gray-200 absolute rounded shadow w-24 hidden left-0 top-0 mt-1 ml-1"> -->
 		<a  href="whatsapp://send?text=<%= t('join', title: @document.title, author: @document.author) %> <%= request.original_url %>"><img class="inline whatsapp" src="https://img.icons8.com/material-outlined/24/000000/whatsapp.png"></a>
 		<button class="copy_text"><i class='material-icons'>content_copy</i></button>
-	<!-- </div> -->
 </h1>
 <h2  class="text-3xl"><%= @document.author %></h2>
 
@@ -90,6 +87,7 @@
 		$(document).ready(function() {
 			$(".content").show()
 			$(".overlay").hide()
+
 		});
 	</script>
 <% end %>
@@ -101,7 +99,11 @@
 		});
 		var content = $(".content").html().split("\n")
 		$(".content").html("");
-		content.forEach(function(el, index) {
+		content.forEach(function(el, index) {   <% if action_name == "show" && !user_signed_in? %>
+     <div class="progress-container fixed top-0 w-full">
+         <div class="progress-bar w-full" id="myBar"></div>
+     </div>
+   <% end %>
 			if (el == "") {
 			} else {
 				$(".content").append( "<p>" + "<span class='text-sm text-gray-600'>" + (index + 1) + "</span> " + el + "</p>" );
@@ -126,10 +128,12 @@
 			$(".settings-btn").toggleClass('settings-dark');
 			$("nav").toggleClass('footer-dark');
 			$("footer").toggleClass('footer-dark');
+			$("header").toggleClass('header-dark');
 			$(".docs-btn").toggleClass('dark-docs-btn');
 			$(".logout-btn").toggleClass('dark-logout-btn');
 			$(".back-btn").toggleClass('dark-back-btn');
 			$(".progress-bar").toggleClass('dark-progress-bar');
+			$(".whatsapp").toggleClass('whatsapp-dark');
 			$(".font-size").toggleClass('bg-gray-300').toggleClass('font-size-dark');;
 		});
 
@@ -138,6 +142,12 @@
 			var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
 			var scrolled = (winScroll / height) * 100;
 			document.getElementById("myBar").style.width = scrolled + "%";
+			if (scrolled > 25) {
+				$(".progress-container").removeClass('sticky').addClass('fixed');
+			}
+			else {
+				$(".progress-container").removeClass('fixed').addClass('sticky');
+			}
 		}
 
 

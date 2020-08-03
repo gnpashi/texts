@@ -1,8 +1,13 @@
-<div class="">
-	<%= image_tag "logo.svg" %>
+<div class="flex justify-center items-center flex-col my-5">
+	<div class="">
+		<%= image_tag "logo.svg", size: 150 %>
+	</div>
+	<div class="text-2xl font-bold">
+		<%= t("no_distraction") %>
+	</div>
 </div>
 <% content_for :devise_form do %>
-  <h2 class="heading text-4xl font-bold pt-4 mb-8">התחברות</h2>
+  <!-- <h2 class="heading text-4xl font-bold pt-4 mb-8">התחברות</h2> -->
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
   <div class="mb-6">

@@ -46,6 +46,7 @@ he:
   send: "שליחה"
   save: "שמירה"
   share: "שיתוף"
+  no_distraction: "לקרוא בלי הסחות דעת"
   site_name: "Offline"
   join: "אנחנו קוראים יחד את %{title} מאת %{author}. רוצה להצטרף?"
   registration: "הרשמה"

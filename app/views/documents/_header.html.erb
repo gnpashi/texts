@@ -1,4 +1,4 @@
-<header class="flex justify-between items-center p-2 border-b">
+<header class="flex justify-between items-center p-2 shadow bg-gray-100">
 	<div class="">
 		<%= image_tag "logo.svg", size: 50 %>
 	</div>
@@ -7,3 +7,8 @@
 	<i class='material-icons'>bug_report</i>
 </div>
 </header>
+<% if action_name == "show"  %>
+	<div class="progress-container sticky top-0 w-full mb-3">
+			<div class="progress-bar w-full" id="myBar"></div>
+	</div>
+<% end %>
