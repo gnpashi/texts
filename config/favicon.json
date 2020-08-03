@@ -1,5 +1,5 @@
 {
-    "master_picture": "app/assets/images/original-logo.png",
+    "master_picture": "app/assets/images/logo.png",
     "favicon_design": {
         "ios": {
             "picture_aspect": "background_and_margin",
@@ -11,7 +11,7 @@
                 "precomposed_icons": false,
                 "declare_only_default_icon": true
             },
-            "app_name": "offline-texts"
+            "app_name": "texts"
         },
         "desktop_browser": {
             "design": "raw"
@@ -29,13 +29,13 @@
                     "rectangle": false
                 }
             },
-            "app_name": "offline-texts"
+            "app_name": "texts"
         },
         "android_chrome": {
             "picture_aspect": "no_change",
             "theme_color": "#ffffff",
             "manifest": {
-                "name": "offline-texts",
+                "name": "texts",
                 "display": "standalone",
                 "orientation": "not_set",
                 "on_conflict": "override",
@@ -48,7 +48,7 @@
         },
         "safari_pinned_tab": {
             "picture_aspect": "black_and_white",
-            "threshold": 77.34375,
+            "threshold": 62.5,
             "theme_color": "#5bbad5"
         }
     },

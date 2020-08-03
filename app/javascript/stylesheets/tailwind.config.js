@@ -1,12 +1,10 @@
 module.exports = {
+	purge: [
+	'.app/views/**/*.html',
+	],
   prefix: '',
   important: false,
   separator: ':',
-  // purge: [
-  //   './app/**/*.html.erb',
-  //  './app/helpers/**/*.rb',
-  //  './app/javascript/**/*.js',
-  // ],
   theme: {
     colors: {
       transparent: 'transparent',

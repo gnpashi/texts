@@ -9,14 +9,14 @@
 
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag  'application', 'data-turbolinks-track': 'reload', defer: "defer" %>
+    <%= javascript_pack_tag  'application', 'data-turbolinks-track': 'reload' %>
 		<link href="https://fonts.googleapis.com/css?family=Rubik&display=swap&subset=hebrew" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <%# render 'application/favicon' %>
+    <%= render 'application/favicon' %>
   </head>
 
  <body class="bg-white h-full">
-
+	 <%= render "header" %>
    <% if action_name == "show" %>
      <div class="progress-container fixed top-0 w-full">
          <div class="progress-bar w-full" id="myBar"></div>

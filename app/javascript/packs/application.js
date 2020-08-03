@@ -8,7 +8,7 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-require('jquery')
+// require('jquery')
 require("custom/custom")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -17,4 +17,5 @@ require("custom/custom")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
 import "stylesheets/application"
