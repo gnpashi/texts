@@ -16,6 +16,7 @@
         <td>
           <a  href="whatsapp://send?text=<%= t('join', title: document.title, author: document.author) %> <%= request.original_url %>"><img class="inline whatsapp" src="https://img.icons8.com/material-outlined/24/000000/whatsapp.png"></a>
           <button class="copy_text"><i class='material-icons'>content_copy</i></button>
+          <button class="share"  value="<%= document.id %>, <%= document.title %>, <%= document.author %>"  ><i class='material-icons'>share</i></button>
         </td>
         <td>
           <%= link_to "<i class='material-icons'>edit</i>".html_safe, edit_document_path(document) %>
@@ -33,5 +34,27 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("header").addClass('mb-3')
+		$(".share").click(function(event) {
+			console.log($(this).val().split(",")[0]);
+			var document = $(this).val().split(",")
+			var doc_id = document[0]
+			var doc_title = document[1]
+			var doc_author = document[2]
+			console.log(doc_title);
+			console.log(doc_title.replace(/ /g, "-"));
+			console.log("<%= request.base_url %>/documents/" + doc_id  + doc_title.replace(/ /g, "-"));
+			console.log("<%= request.base_url %>");
+			if (navigator.share) {
+				navigator.share({
+					title: 'סח-אי',
+					text: 'אנחנו קוראים יחד את ' + doc_title + "מאת " + doc_author + ". רוצה להצטרף?",
+					url: "<%= request.base_url %>/documents/" + doc_id  + doc_title.replace(/ /g, "-"),
+				})
+				.then(() => console.log('Successful share'))
+				.catch((error) => console.log('Error sharing', error));
+			}
+
+		});
 	});
+
 </script>
