@@ -3,7 +3,6 @@
     <tr>
       <th><%= t("doc-title") %></th>
       <th><%= t("author") %></th>
-      <th><%= t("share") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,12 +12,9 @@
       <tr class="border-b">
         <td class=""><%= link_to document.title, document %></td>
         <td class=""><%= document.author %></td>
+
         <td>
-          <a  href="whatsapp://send?text=<%= t('join', title: document.title, author: document.author) %> <%= request.original_url %>"><img class="inline whatsapp" src="https://img.icons8.com/material-outlined/24/000000/whatsapp.png"></a>
-          <button class="copy_text"><i class='material-icons'>content_copy</i></button>
-          <button class="share"  value="<%= document.id %>, <%= document.title %>, <%= document.author %>"  ><i class='material-icons'>share</i></button>
-        </td>
-        <td>
+					<button class="share"  value="<%= document.id %>, <%= document.title %>, <%= document.author %>"  ><i class='material-icons'>share</i></button>
           <%= link_to "<i class='material-icons'>edit</i>".html_safe, edit_document_path(document) %>
           <%= link_to "<i class='material-icons'>delete</i>".html_safe, document, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
@@ -43,7 +39,7 @@
 			if (navigator.share) {
 				navigator.share({
 					title: 'סח-אי',
-					text: 'אנחנו קוראים יחד את ' + doc_title + "מאת " + doc_author + ". רוצה להצטרף?",
+					text: 'אנחנו קוראים יחד את ' + doc_title + " מאת " + doc_author + ". רוצה להצטרף?",
 					url: "<%= request.base_url %>/documents/" + doc_id,
 					// url: "<%= request.base_url %>/documents/" + doc_id  + doc_title.replace(/ /g, "-"),
 				})
