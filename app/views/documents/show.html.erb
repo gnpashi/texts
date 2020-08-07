@@ -1,6 +1,6 @@
 <%= content_for :title, @document.title %>
 
-<h1 class="text-5xl"><%= @document.title %><span class="share mr-2">
+<h1 class="text-5xl"><%= @document.title %><span class=" mr-2">
 		<button class="share"  value="<%= @document.id %>, <%= @document.title %>, <%= @document.author %>"  ><i class='material-icons'>share</i></button>
 </h1>
 <h2  class="text-3xl"><%= @document.author %></h2>
@@ -12,8 +12,11 @@
 <div class="settings-btn bg-gray-300 w-10 h-10 text-center pt-2 rounded-full rounded-l-none">
 	<i class='material-icons'>settings</i>
 </div>
-
-<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center">
+<% if user_signed_in? %>
+	<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center hidden">
+<% else %>
+	<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center">
+<% end %>
 	<div class="w-3/4 h-3/4 bg-red-600 self-center rounded-lg text-white flex flex-col justify-center items-center">
 		<p class="text-3xl">צריך לכבות את האינטרנט כדי לקרוא את הטקסט</p>
 		<%= image_tag "eye-white.svg", class:"w-full"%>
@@ -36,10 +39,15 @@
   <div>9</div> -->
 </div>
 </div>
-
+<!-- <% if action_name == "show" && !user_signed_in? %>
+<div class="progress-container fixed top-0 w-full">
+	 <div class="progress-bar w-full" id="myBar"></div>
+</div>
+<% end %> -->
 <% unless user_signed_in? %>
   <script type="text/javascript">
 	$(document).ready(function() {
+
 		var messages = ['<%= t("messages.a") %>','<%= t("messages.b") %>','<%= t("messages.c") %>',
 										'<%= t("messages.d") %>','<%= t("messages.e") %>','<%= t("messages.f") %>']
 		$.ajax({
@@ -92,35 +100,13 @@
 <% end %>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".share").click(function(event) {
-			console.log($(this).val().split(",")[0]);
-			var document = $(this).val().split(",")
-			var doc_id = document[0]
-			var doc_title = document[1]
-			var doc_author = document[2]
-			if (navigator.share) {
-				navigator.share({
-					title: 'סח-אי',
-					text: 'אנחנו קוראים יחד את ' + doc_title + " מאת " + doc_author + ". רוצה להצטרף?",
-					url: "<%= request.base_url %>/documents/" + doc_id,
-					// url: "<%= request.base_url %>/documents/" + doc_id  + doc_title.replace(/ /g, "-"),
-				})
-				.then(() => console.log('Successful share'))
-				.catch((error) => console.log('Error sharing', error));
-			}
-
-		});
 		window.onscroll = function() {scroll_func()};
 		$(".copy_text").click(function(event) {
 			copy_text()
 		});
 		var content = $(".content").html().split("\n")
 		$(".content").html("");
-		content.forEach(function(el, index) {   <% if action_name == "show" && !user_signed_in? %>
-     <div class="progress-container fixed top-0 w-full">
-         <div class="progress-bar w-full" id="myBar"></div>
-     </div>
-   <% end %>
+		content.forEach(function(el, index) {
 			if (el == "") {
 			} else {
 				$(".content").append( "<p>" + "<span class='text-sm text-gray-600'>" + (index + 1) + "</span> " + el + "</p>" );
@@ -168,22 +154,5 @@
 		}
 
 
-			function copy_text() {
-				var dummy = document.createElement('input'),
-					text = window.location.href;
-			document.body.appendChild(dummy);
-			dummy.value = "אנחנו קוראים יחד את <%= @document.title %> של <%= @document.author %> רוצה להצטרף? \r\r\r" + text;
-			dummy.select();
-			document.execCommand('copy');
-			document.body.removeChild(dummy);
-
-		}
-		function sleep(milliseconds) {
-			const date = Date.now();
-			let currentDate = null;
-			do {
-				currentDate = Date.now();
-			} while (currentDate - date < milliseconds);
-		}
 	});
 </script>
