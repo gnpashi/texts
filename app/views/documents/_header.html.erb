@@ -3,8 +3,8 @@
 		<%= image_tag "logo.svg", size: 50 %>
 	</div>
 <div class="">
-	<i class='material-icons'>info_outline</i>
-	<i class='material-icons'>bug_report</i>
+	<i class='material-icons info-btn'>info_outline</i>
+	<a href="whatsapp://send?text=דיווח על תקלה&phone=972549788288' data-action='share/whatsapp/share"><i class='material-icons'>bug_report</i></a>
 </div>
 </header>
 <% if action_name == "show"  %>
@@ -12,3 +12,68 @@
 			<div class="progress-bar w-full" id="myBar"></div>
 	</div>
 <% end %>
+
+<div class="info hiddena absolute top-0 h-full w-full bg-white z-50">
+	<i class='material-icons info-btn m-3'>close</i>
+	<div class="flex justify-center items-center flex-col ">
+		<div class="">
+			<%= image_tag "logo.svg", size: 150 %>
+		</div>
+		<div class="text-2xl font-bold">
+			<%= t("no_distraction") %>
+		</div>
+	</div>
+	<div class="">
+		<h3>
+			סח-אי (שם זמני, אם יש לכם רעיון יותר טוב תשלחו לי) היא אפליקציה שנועדה:
+		</h3>
+		<ol class="list-decimal list-inside">
+			<li>
+				לחסוך בנייר על ידי קריאה בטלפון.
+			</li>
+			<li>
+				לאפשר קריאה בטלפון על ידי מניעת הסחות דעות.
+			</li>
+		</ol>
+
+		<h3>
+			מה היא לא:
+		</h3>
+		<ol class="list-decimal list-inside">
+			<li>
+				דרך לעקוב אחרי חניכים.
+			</li>
+			<li>
+				דרך לדעת שכולם באמת קוראים, כי הרי כל אחד יכול לצאת מהאפליקציה ולעשות מה שבא לו.
+			</li>
+		</ol>
+
+		<h3>
+			אופן  השימוש:
+		</h3>
+		<ol class="list-decimal list-inside">
+			<li>לוחצים על הפלוס</li>
+			<li>	רושמים את שם הטקסט והמחבר.ת</li>
+			<li>	מעתיקים את  הטקסט (כרגע אפשר רק להעתיק אולי אם יהיה צורך נאפשר להעלות גם תמונה של טקסט).</li>
+			<li>שולחים לחניכים את הטקסט.</li>
+			<li>	הם חייבים לכבות את האינטרנט כדי לראות את הטקסט</li>
+			<li>כולם נהנים ועושים מהפכה בחברה הישראלית</li>
+		</ol>
+
+
+
+
+
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".info-btn").click(function(event) {
+			$(".info").show(500)
+			$("body").toggleClass('overflow-hidden');
+			$(".info").toggleClass('overflow-auto');
+		});
+	});
+</script>
