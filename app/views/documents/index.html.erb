@@ -1,31 +1,40 @@
-<table class="w-full">
-  <thead class="w-full">
-    <tr>
-      <th><%= t("doc-title") %></th>
-      <th><%= t("author") %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="lg:px-10 px-4">
+	<table class="w-full">
+		<thead class="w-full text-right">
+			<tr>
+				<th><%= t("doc-title") %></th>
+				<th><%= t("author") %></th>
+				<th colspan="3"></th>
+			</tr>
+		</thead>
 
-  <tbody>
-    <% @documents.each do |document| %>
-      <tr class="border-b">
-        <td class=""><%= link_to document.title, document %></td>
-        <td class=""><%= document.author %></td>
+		<tbody>
+			<% @documents.each do |document| %>
+			<tr class="border-b">
+				<td class=""><%= link_to document.title, document %></td>
+				<td class=""><%= document.author %></td>
 
-        <td>
-					<button class="share"  value="<%= document.id %>, <%= document.title %>, <%= document.author %>"  ><i class='material-icons'>share</i></button>
-          <%= link_to "<i class='material-icons'>edit</i>".html_safe, edit_document_path(document) %>
-          <%= link_to "<i class='material-icons'>delete</i>".html_safe, document, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+				<td>
+					<button value="<%= document.id %>" class="more"><i class='material-icons'>more_vert</i></button>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
 
-<br>
+	<br>
+	<%= link_to "<i class='material-icons'>add</i>".html_safe, new_document_path, class:"bg-blue-500 hover:bg-blue-700 text-white  h-10 w-10 flex items-center justify-center rounded-full" %>
+</div>
 
-<%= link_to "<i class='material-icons'>add</i>".html_safe, new_document_path, class:"bg-blue-500 hover:bg-blue-700 text-white  h-10 w-10 flex items-center justify-center rounded-full" %>
+<% @documents.each do |document| %>
+	<div id="more-overlay-<%= document.id %>" class="more-overlay hidden absolute top-0 w-full h-full flex justify-center items-center bg-overlay z-50">
+		<div class="more-content bg-white rounded p-3">
+			<button class="share"  value="<%= document.id %>, <%= document.title %>, <%= document.author %>"  ><i class='material-icons'>share</i></button>
+			<%= link_to "<i class='material-icons'>edit</i>".html_safe, edit_document_path(document) %>
+			<%= link_to "<i class='material-icons'>delete</i>".html_safe, document, method: :delete, data: { confirm: 'Are you sure?' } %>
+		</div>
+	</div>
+<% end %>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -47,6 +56,21 @@
 				.catch((error) => console.log('Error sharing', error));
 			}
 
+		});
+		$(".more").click(function(event) {
+			var val = $(this).val()
+			console.log(val);
+			$("#more-overlay-"+ val).toggleClass('hidden');
+			$("body").toggleClass('overflow-hidden');
+			// $("main").toggleClass('lg:px-10 px-4');
+			// $("table").toggleClass('lg:px-10 px-4');
+		});
+		$(".more-overlay").click(function(event) {
+			console.log("lose");
+			/* Act on the event */
+			var val = $(this).attr('id');
+			console.log(val);
+			$(this).toggleClass('hidden');
 		});
 	});
 

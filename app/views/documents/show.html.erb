@@ -153,6 +153,23 @@
 			}
 		}
 
+		$(".share").click(function(event) {
+			console.log($(this).val().split(",")[0]);
+			var document = $(this).val().split(",")
+			var doc_id = document[0]
+			var doc_title = document[1]
+			var doc_author = document[2]
+			if (navigator.share) {
+				navigator.share({
+					title: 'סח-אי',
+					text: 'אנחנו קוראים יחד את ' + doc_title + " מאת " + doc_author + ". רוצה להצטרף?",
+					url: "<%= request.base_url %>/documents/" + doc_id,
+					// url: "<%= request.base_url %>/documents/" + doc_id  + doc_title.replace(/ /g, "-"),
+				})
+				.then(() => console.log('Successful share'))
+				.catch((error) => console.log('Error sharing', error));
+			}
 
+		});
 	});
 </script>
