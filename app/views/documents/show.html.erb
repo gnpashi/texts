@@ -1,49 +1,51 @@
 <%= content_for :title, @document.title %>
-
-<h1 class="text-5xl"><%= @document.title %><span class=" mr-2">
+<div class="lg:px-10 px-4">
+	<h1 class="text-5xl"><%= @document.title %><span class=" mr-2">
 		<button class="share"  value="<%= @document.id %>, <%= @document.title %>, <%= @document.author %>"  ><i class='material-icons'>share</i></button>
-</h1>
-<h2  class="text-3xl"><%= @document.author %></h2>
+	</h1>
+	<h2  class="text-3xl"><%= @document.author %></h2>
 
-<pre class="content text-lg mb-16 hidden">
-	<%= @document.content %>
-</pre>
+	<pre class="content text-lg mb-16 hidden">
+		<%= @document.content %>
+	</pre>
 
-<div class="settings-btn bg-gray-300 w-10 h-10 text-center pt-2 rounded-full rounded-l-none">
-	<i class='material-icons'>settings</i>
-</div>
-<% if user_signed_in? %>
-	<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center hidden">
-<% else %>
-	<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center">
-<% end %>
-	<div class="w-3/4 h-3/4 bg-red-600 self-center rounded-lg text-white flex flex-col justify-center items-center">
-		<p class="text-3xl">צריך לכבות את האינטרנט כדי לקרוא את הטקסט</p>
-		<%= image_tag "eye-white.svg", class:"w-full"%>
-		<p id="message" class="text-3xl"></p>
+	<div class="settings-btn bg-gray-300 w-10 h-10 text-center pt-2 rounded-full rounded-l-none">
+		<i class='material-icons'>settings</i>
 	</div>
-</div>
-
-<div class="settings hidden w-1/2 h-1/4a bg-gray-200 rounded shadow">
-	<div class="grid grid-cols-1 gap-4">
-		<div class="font-size grid grid-cols-3 gap-4 bg-gray-300">
-			<div class="bigger"><i class='material-icons'>add</i></div>
-			<div><i class='material-icons'>format_size</i></div>
-			<div class="smaller"><i class='material-icons'>remove</i></div>
+	<% if user_signed_in? %>
+	<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center hidden">
+		<% else %>
+		<div class="overlay absolute top-0 right-0 w-full h-full bg-black flex justify-center">
+			<% end %>
+			<div class="w-3/4 h-3/4 bg-red-600 self-center rounded-lg text-white flex flex-col justify-center items-center">
+				<p class="text-3xl">צריך לכבות את האינטרנט כדי לקרוא את הטקסט</p>
+				<%= image_tag "eye-white.svg", class:"w-full"%>
+				<p id="message" class="text-3xl"></p>
+			</div>
 		</div>
-	<div class="dark-toggle"><i class='material-icons'>nights_stay</i></div>
-	<!-- <div>5</div>
-	<div>6</div>
-	<div>7</div>
-	<div>8</div>
-  <div>9</div> -->
+
+		<div class="settings hidden w-1/2 h-1/4a bg-gray-200 rounded shadow">
+			<div class="grid grid-cols-1 gap-4">
+				<div class="font-size grid grid-cols-3 gap-4 bg-gray-300">
+					<div class="bigger"><i class='material-icons'>add</i></div>
+					<div><i class='material-icons'>format_size</i></div>
+					<div class="smaller"><i class='material-icons'>remove</i></div>
+				</div>
+				<div class="dark-toggle"><i class='material-icons'>nights_stay</i></div>
+				<!-- <div>5</div>
+				<div>6</div>
+				<div>7</div>
+				<div>8</div>
+				<div>9</div> -->
+			</div>
+		</div>
+		<!-- <% if action_name == "show" && !user_signed_in? %>
+		<div class="progress-container fixed top-0 w-full">
+		<div class="progress-bar w-full" id="myBar"></div>
+	</div>
+	<% end %> -->
+
 </div>
-</div>
-<!-- <% if action_name == "show" && !user_signed_in? %>
-<div class="progress-container fixed top-0 w-full">
-	 <div class="progress-bar w-full" id="myBar"></div>
-</div>
-<% end %> -->
 <% unless user_signed_in? %>
   <script type="text/javascript">
 	$(document).ready(function() {
